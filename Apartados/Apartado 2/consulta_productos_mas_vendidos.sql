@@ -14,7 +14,6 @@ Select nombre_producto from productos
 where exists (select * from detallepedidos where productos.`ProductoID` = detallepedidos.ProductoID 
 and cantidad >5 );
 
-
 # Con el Inner join 
 SELECT distinct nombre_producto  as 'Inner Join'
 FROM productos
