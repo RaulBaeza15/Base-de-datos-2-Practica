@@ -20,10 +20,37 @@ HAVING COUNT(*) > (
     WHERE sc.nombre_subcategoria IN ('Dirección', 'Horquilla')
     );
 select * from categoriaproducto cat
-where cat.nombre_categoria='Componente'
-;
+where cat.nombre_categoria='Componente';
 select * from subcategoriaproducto subcat
-where subcat.nombre_subcategoria  LIKE '%Cuadro%'
+where subcat.nombre_subcategoria  LIKE '%Cuadro%';
+select * from productos prod
+where prod.color='blue';
+select * from subcategoriaproducto subcat
+where subcat.nombre_subcategoria = 'Dirección';
+select * from subcategoriaproducto subcat
+where subcat.nombre_subcategoria  = 'Horquilla';
+
+select * from productos prod 
+where prod.subcategoriaID in (select subcat.subcategoriaID from subcategoriaproducto subcat
+where subcat.nombre_subcategoria  = 'Horquilla'); 
+
+select dtllp.ProductoID, count(distinct dtllp.pedidoId) 
+from detallepedidos dtllp
+WHERE dtllp.ProductoID in (
+	select prod.ProductoID from productos prod 
+	where prod.subcategoriaID in (
+		select subcat.subcategoriaID from subcategoriaproducto subcat
+		where subcat.nombre_subcategoria  = 'Dirección'))
+GROUP BY dtllp.ProductoID;
+            
+select dtllp.ProductoID, count(distinct dtllp.pedidoId) 
+from detallepedidos dtllp
+WHERE dtllp.ProductoID in (
+	select prod.ProductoID from productos prod 
+	where prod.subcategoriaID in (
+		select subcat.subcategoriaID from subcategoriaproducto subcat
+		where subcat.nombre_subcategoria  = 'Horquilla'))
+GROUP BY dtllp.ProductoID;
 
 
  
