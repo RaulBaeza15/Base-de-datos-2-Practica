@@ -19,4 +19,11 @@ HAVING COUNT(*) > (
         ON pd.ProductoID = dp.ProductoID
     WHERE sc.nombre_subcategoria IN ('Dirección', 'Horquilla')
     );
-    
+select * from categoriaproducto cat
+where cat.nombre_categoria='Componente'
+;
+select * from subcategoriaproducto subcat
+where subcat.nombre_subcategoria  LIKE '%Cuadro%'
+
+
+ 
