@@ -1,0 +1,1 @@
+create unique index categoria_nombrecategoria on categoriaproducto (nombre_categoria); 
