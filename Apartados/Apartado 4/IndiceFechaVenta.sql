@@ -1,0 +1,1 @@
+create index pedidos_fecha_venta on pedidos(fecha_venta);
