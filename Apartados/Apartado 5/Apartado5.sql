@@ -1,21 +1,10 @@
-START TRANSACTION;
-
-UPDATE detallepedidos
-
-Set descuento_unitario=descuento_unitario+1
-
-WHERE PedidoID IN (SELECT PedidoID 
-
- FROM pedidos INNER JOIN detallespedidos ON pedidos.PedidoID=detallepedidos.PedidoID
-
-INNER JOIN producto ON detallepedidos.productoID=producto.productoID 
-
-INNER JOIN subcategoriaproducto ON productos.subcategoriaID=subcategoriaproducto.subcategoriaID
-
-INNER JOIN categoriaproducto ON categoriaproducto.categoriaID=subcategoriaproducto.categoriaID
-
-  WHERE YEAR(fecha_venta) = 2023
-
-) AND nombre_categoria = 'Bicicleta' AND descuento_unitario > 0;
-
-ROLLBACK;
+select *, descuento_unitario+1 from detallepedidos
+where descuento_unitario<> 0 
+and PedidoID in(
+	select PedidoID from pedidos 
+    where fecha_venta like '%2023%' 
+    and ProductoID in (select ProductoID from productos
+inner join subcategoriaproducto on productos.subcategoriaID=subcategoriaproducto.subCategoriaID
+where categoriaID in (select categoriaID from categoriaproducto
+where nombre_categoria= 'bicicleta'))
+	)
