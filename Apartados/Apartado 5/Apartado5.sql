@@ -1,6 +1,7 @@
 START TRANSACTION;
 select * from detallepedidos where descuento_unitario = 100;
 UPDATE detallepedidos
+IGNORE INDEX(idx_detalleproductoprecio) 
 SET descuento_unitario = descuento_unitario+1
 WHERE PedidoID IN (
     SELECT PedidoID
